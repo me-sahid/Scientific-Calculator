@@ -6,6 +6,8 @@ let erase = document.getElementById("erase");
 let clear = document.getElementById("ac");
 let percentage = document.getElementById("percentage");
 let ifSciCalClicked = false;
+let base = null;
+let ifpowerMode = false;
 
 input_buttons.forEach((button_clicked) =>{
     button_clicked.addEventListener("click", () =>{
@@ -47,6 +49,13 @@ equal.addEventListener("click", () => {
         calculateSciFunction(method,value);
     }
     ifSciCalClicked = false;
+
+    if(ifpowerMode && base !== null){
+        const expo = parseFloat(screen.value);
+        screen.value = Math.pow(base,expo);
+        base = null;
+        ifpowerMode = false;
+    }
 });
 percentage.addEventListener("click",()=>{
     let value = screen.value;
@@ -118,9 +127,7 @@ document.getElementById("pie").addEventListener("click",()=>{
     screen.value = 3.14;
 });
 document.getElementById("pow").addEventListener("click",()=>{
-    if(screen.value){
-        screen.value = Math.pow(screen.value,2);
-    }else{
-        screen.value = Math.pow(0,2);
-    }
+    base = parseFloat(screen.value);
+    ifpowerMode =true;
+    screen.value = "";
 });
